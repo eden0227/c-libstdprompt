@@ -8,11 +8,11 @@ OBJS = $(SRC)/stdprompt.o
 
 .PHONY: clean
 
-$(SRC)/stdprompt: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+%: %.c $(OBJS)
+	$(CC) $(CFLAGS) $< $(OBJS) -o $@ -lm
 
 $(SRC)/stdprompt.o: $(SRC)/stdprompt.c $(SRC)/stdprompt.h
 	$(CC) $(CFLAGS) -c $(SRC)/stdprompt.c -o $@
 
 clean:
-	rm -f $(OBJS) $(SRC)/stdprompt
+	rm -f $(OBJS)
