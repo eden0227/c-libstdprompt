@@ -3,10 +3,11 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <ctype.h>
+#include <string.h>
 #include <math.h>
 #include <errno.h>
 #include <limits.h>
@@ -19,29 +20,23 @@
 
 #define BUFFER_CAPACITY 16
 
-static size_t allocations = 0;
 static char **strings = NULL;
+static size_t allocations = 0;
 
 #undef get_string
 char *get_string(va_list *args, const char *format, ...)
 {
     if (allocations >= SIZE_MAX / sizeof(char *))
-    {
         return NULL;
-    }
 
     if (format != NULL)
     {
         va_list ap;
 
         if (args == NULL)
-        {
             va_start(ap, format);
-        }
         else
-        {
             va_copy(ap, *args);
-        }
 
         vprintf(format, ap);
         va_end(ap);
@@ -52,8 +47,8 @@ char *get_string(va_list *args, const char *format, ...)
     if (buffer == NULL)
         return NULL;
 
-    size_t size = 0;
     int c;
+    size_t size = 0;
 
     while ((c = fgetc(stdin)) != '\r' && c != '\n' && c != EOF)
     {
@@ -139,7 +134,14 @@ char get_char(const char *format, ...)
         while (isspace((unsigned char)*str))
             str++;
 
-        if (*str && *(str + 1) == '\0')
+        if (*str == '\0')
+            continue;
+
+        char *end = str + strlen(str) - 1;
+        while (end > str && isspace((unsigned char)*end))
+            *end-- = '\0';
+
+        if (*(str + 1) == '\0')
         {
             va_end(ap);
             return (char)*str;
