@@ -35,9 +35,11 @@ static size_t allocations = 0;
 #undef get_string
 char *get_string(va_list *args, const char *format, ...)
 {
+    // Check for space in dynamic array
     if (allocations >= SIZE_MAX / sizeof(char *))
         return NULL;
 
+    // Prompt user using formatted string with variadic arguments
     if (format != NULL)
     {
         va_list ap;
@@ -45,31 +47,34 @@ char *get_string(va_list *args, const char *format, ...)
         if (args == NULL)
             va_start(ap, format);
         else
-            va_copy(ap, *args);
+            va_copy(ap, *args); // Copy wrapper function arguments into variadic list
 
         vprintf(format, ap);
         va_end(ap);
     }
 
+    // Initialise dynamic buffer for characters
     size_t capacity = BUFFER_CAPACITY;
     unsigned char *buffer = malloc(capacity);
     if (buffer == NULL)
         return NULL;
 
-    int c;
-    size_t size = 0;
+    size_t size = 0; // Indicate number of characters in buffer
+    int c;           // Read character or EOF
 
+    // Get characters iteratively from standard input
+    // Check CR (\r), LF (\n), and CRLF (\r\n)
     while ((c = fgetc(stdin)) != '\r' && c != '\n' && c != EOF)
     {
-        if (size + 1 > capacity)
+        if (size + 1 > capacity) // Grow buffer if necessary
         {
-            if (capacity >= SIZE_MAX / 2)
+            if (capacity >= SIZE_MAX / 2) // Consider terminating zero
             {
                 free(buffer);
                 return NULL;
             }
 
-            capacity *= 2;
+            capacity *= 2; // Increment buffer capacity exponentially
 
             unsigned char *temp = realloc(buffer, capacity);
             if (temp == NULL)
@@ -80,21 +85,24 @@ char *get_string(va_list *args, const char *format, ...)
             buffer = temp;
         }
 
-        buffer[size++] = c;
+        buffer[size++] = c; // Append current character to buffer
     }
 
+    // Check for no input from user
     if (size == 0 && c == EOF)
     {
         free(buffer);
         return NULL;
     }
 
+    // Check space for terminating zero
     if (size == SIZE_MAX)
     {
         free(buffer);
         return NULL;
     }
 
+    // Check for CRLF (\r\n)
     if (c == '\r')
     {
         int next = fgetc(stdin);
@@ -106,14 +114,16 @@ char *get_string(va_list *args, const char *format, ...)
             }
     }
 
+    // Minimise buffer
     unsigned char *str = realloc(buffer, size + 1);
     if (str == NULL)
     {
         free(buffer);
         return NULL;
     }
-    str[size] = '\0';
+    str[size] = '\0'; // Terminate string
 
+    // Resize dynamic array to append string
     char **temp = realloc(strings, sizeof(char *) * (allocations + 1));
     if (temp == NULL)
     {
@@ -122,8 +132,8 @@ char *get_string(va_list *args, const char *format, ...)
     }
     strings = temp;
 
-    strings[allocations++] = (char *)str;
-    return (char *)str;
+    strings[allocations++] = (char *)str; // Append string to global array
+    return (char *)str;                   // Return string
 }
 
 // Prompt user for line of characters from standard input using get_string function
