@@ -193,21 +193,21 @@ int get_int(const char *format, ...)
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
-        if (*str)
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        long num = strtol(str, &end, 10); // Convert string to long
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && num >= INT_MIN && num <= INT_MAX)
         {
-            errno = 0;
-            char *end;
-            long num = strtol(str, &end, 10); // Convert string to long
-
-            while (isspace((unsigned char)*end)) // Trim trailing whitespace
-                end++;
-
-            // Check remaining string and range
-            if (errno == 0 && *end == '\0' && num >= INT_MIN && num <= INT_MAX)
-            {
-                va_end(ap);
-                return (int)num; // Cast int to long
-            }
+            va_end(ap);
+            return (int)num; // Cast int to long
         }
     }
 }
@@ -233,21 +233,21 @@ long get_long(const char *format, ...)
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
-        if (*str)
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        long num = strtol(str, &end, 10); // Convert string to long
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && num >= LONG_MIN && num <= LONG_MAX)
         {
-            errno = 0;
-            char *end;
-            long num = strtol(str, &end, 10); // Convert string to long
-
-            while (isspace((unsigned char)*end)) // Trim trailing whitespace
-                end++;
-
-            // Check remaining string and range
-            if (errno == 0 && *end == '\0' && num >= LONG_MIN && num <= LONG_MAX)
-            {
-                va_end(ap);
-                return num; // Return long
-            }
+            va_end(ap);
+            return num; // Return long
         }
     }
 }
@@ -273,21 +273,21 @@ long long get_long_long(const char *format, ...)
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
-        if (*str)
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        long long num = strtoll(str, &end, 10); // Convert string to long long
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && num >= LLONG_MIN && num <= LLONG_MAX)
         {
-            errno = 0;
-            char *end;
-            long long num = strtoll(str, &end, 10); // Convert string to long long
-
-            while (isspace((unsigned char)*end)) // Trim trailing whitespace
-                end++;
-
-            // Check remaining string and range
-            if (errno == 0 && *end == '\0' && num >= LLONG_MIN && num <= LLONG_MAX)
-            {
-                va_end(ap);
-                return num; // Return long long
-            }
+            va_end(ap);
+            return num; // Return long long
         }
     }
 }
@@ -313,21 +313,21 @@ float get_float(const char *format, ...)
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
-        if (*str)
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        float flt = strtof(str, &end); // Convert string to float
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && isfinite(flt) && flt >= -FLT_MAX && flt <= FLT_MAX)
         {
-            errno = 0;
-            char *end;
-            float flt = strtof(str, &end); // Convert string to float
-
-            while (isspace((unsigned char)*end)) // Trim trailing whitespace
-                end++;
-
-            // Check remaining string and range
-            if (errno == 0 && *end == '\0' && isfinite(flt) && flt >= -FLT_MAX && flt <= FLT_MAX)
-            {
-                va_end(ap);
-                return flt; // Return float
-            }
+            va_end(ap);
+            return flt; // Return float
         }
     }
 }
@@ -353,21 +353,21 @@ double get_double(const char *format, ...)
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
-        if (*str)
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        double dbl = strtod(str, &end); // Convert string to double
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && isfinite(dbl) && dbl >= -DBL_MAX && dbl <= DBL_MAX)
         {
-            errno = 0;
-            char *end;
-            double dbl = strtod(str, &end); // Convert string to double
-
-            while (isspace((unsigned char)*end)) // Trim trailing whitespace
-                end++;
-
-            // Check remaining string and range
-            if (errno == 0 && *end == '\0' && isfinite(dbl) && dbl >= -DBL_MAX && dbl <= DBL_MAX)
-            {
-                va_end(ap);
-                return dbl; // Return double
-            }
+            va_end(ap);
+            return dbl; // Return double
         }
     }
 }
