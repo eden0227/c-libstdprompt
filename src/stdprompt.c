@@ -23,6 +23,11 @@
 static char **strings = NULL;
 static size_t allocations = 0;
 
+// Prompt user for line of characters from standard input
+// Return string (char *) data type. If user inputs only line ending, returns "" not NULL
+// Support CR (\r), LF (\n), and CRLF (\r\n) as line endings
+// Return NULL on errors or no input (EOF)
+// Store string on heap, library destructor frees memory on program exit
 #undef get_string
 char *get_string(va_list *args, const char *format, ...)
 {
@@ -117,6 +122,9 @@ char *get_string(va_list *args, const char *format, ...)
     return (char *)str;
 }
 
+// Prompt user for line of characters from standard input using get_string function
+// Return char value. If string does not represent single char, prompt user to retry
+// Return CHAR_MAX as sentinel value if string cannot be read
 char get_char(const char *format, ...)
 {
     va_list ap;
@@ -149,6 +157,9 @@ char get_char(const char *format, ...)
     }
 }
 
+// Prompt user for line of characters from standard input using get_string function
+// Return int value. If string does not represent int in [INT_MIN, INT_MAX], prompt user to retry
+// Return INT_MAX as sentinel value if string cannot be read
 int get_int(const char *format, ...)
 {
     va_list ap;
@@ -184,76 +195,9 @@ int get_int(const char *format, ...)
     }
 }
 
-float get_float(const char *format, ...)
-{
-    va_list ap;
-    va_start(ap, format);
-
-    while (true)
-    {
-        char *str = get_string(&ap, format);
-        if (str == NULL)
-        {
-            va_end(ap);
-            return FLT_MAX;
-        }
-
-        while (isspace((unsigned char)*str))
-            str++;
-
-        if (*str)
-        {
-            errno = 0;
-            char *end;
-            float flt = strtof(str, &end);
-
-            while (isspace((unsigned char)*end))
-                end++;
-
-            if (errno == 0 && *end == '\0' && isfinite(flt) && flt >= -FLT_MAX && flt <= FLT_MAX)
-            {
-                va_end(ap);
-                return flt;
-            }
-        }
-    }
-}
-
-double get_double(const char *format, ...)
-{
-    va_list ap;
-    va_start(ap, format);
-
-    while (true)
-    {
-        char *str = get_string(&ap, format);
-        if (str == NULL)
-        {
-            va_end(ap);
-            return DBL_MAX;
-        }
-
-        while (isspace((unsigned char)*str))
-            str++;
-
-        if (*str)
-        {
-            errno = 0;
-            char *end;
-            double dbl = strtod(str, &end);
-
-            while (isspace((unsigned char)*end))
-                end++;
-
-            if (errno == 0 && *end == '\0' && isfinite(dbl) && dbl >= -DBL_MAX && dbl <= DBL_MAX)
-            {
-                va_end(ap);
-                return dbl;
-            }
-        }
-    }
-}
-
+// Prompt user for line of characters from standard input using get_string function
+// Return long value. If string does not represent long in [LONG_MIN, LONG_MAX], prompt user to retry
+// Return LONG_MAX as sentinel value if string cannot be read
 long get_long(const char *format, ...)
 {
     va_list ap;
@@ -289,6 +233,9 @@ long get_long(const char *format, ...)
     }
 }
 
+// Prompt user for line of characters from standard input using get_string function
+// Return long long value. If string does not represent long long in [LLONG_MIN, LLONG_MAX], prompt user to retry
+// Return LLONG_MAX as sentinel value if string cannot be read
 long long get_long_long(const char *format, ...)
 {
     va_list ap;
@@ -319,6 +266,82 @@ long long get_long_long(const char *format, ...)
             {
                 va_end(ap);
                 return num;
+            }
+        }
+    }
+}
+
+// Prompt user for line of characters from standard input using get_string function
+// Return float value. If string does not represent float in [-FLT_MAX, FLT_MAX], prompt user to retry
+// Return FLT_MAX as sentinel value if string cannot be read
+float get_float(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+
+    while (true)
+    {
+        char *str = get_string(&ap, format);
+        if (str == NULL)
+        {
+            va_end(ap);
+            return FLT_MAX;
+        }
+
+        while (isspace((unsigned char)*str))
+            str++;
+
+        if (*str)
+        {
+            errno = 0;
+            char *end;
+            float flt = strtof(str, &end);
+
+            while (isspace((unsigned char)*end))
+                end++;
+
+            if (errno == 0 && *end == '\0' && isfinite(flt) && flt >= -FLT_MAX && flt <= FLT_MAX)
+            {
+                va_end(ap);
+                return flt;
+            }
+        }
+    }
+}
+
+// Prompt user for line of characters from standard input using get_string function
+// Return double value. If string does not represent double in [-DBL_MAX, DBL_MAX], prompt user to retry
+// Return DBL_MAX as sentinel value if string cannot be read
+double get_double(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+
+    while (true)
+    {
+        char *str = get_string(&ap, format);
+        if (str == NULL)
+        {
+            va_end(ap);
+            return DBL_MAX;
+        }
+
+        while (isspace((unsigned char)*str))
+            str++;
+
+        if (*str)
+        {
+            errno = 0;
+            char *end;
+            double dbl = strtod(str, &end);
+
+            while (isspace((unsigned char)*end))
+                end++;
+
+            if (errno == 0 && *end == '\0' && isfinite(dbl) && dbl >= -DBL_MAX && dbl <= DBL_MAX)
+            {
+                va_end(ap);
+                return dbl;
             }
         }
     }
