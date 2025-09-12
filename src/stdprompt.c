@@ -1,3 +1,4 @@
+// Enable GNU-specific extensions in standard libraries
 #define _GNU_SOURCE
 
 #include <stdarg.h>
@@ -15,16 +16,19 @@
 
 #include "stdprompt.h"
 
+// Disable warnings on variadic arguments from compilers
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-security"
 
+// Define initial macro for buffer capacity in get_string function
 #define BUFFER_CAPACITY 16
 
+// Initialise dynamic array of allocated strings by get_string function
 static char **strings = NULL;
 static size_t allocations = 0;
 
 // Prompt user for line of characters from standard input
-// Return string (char *) data type. If user inputs only line ending, returns "" not NULL
+// Return string (char *) value. If user inputs only line ending, returns "" not NULL
 // Support CR (\r), LF (\n), and CRLF (\r\n) as line endings
 // Return NULL on errors or no input (EOF)
 // Store string on heap, library destructor frees memory on program exit
@@ -347,6 +351,8 @@ double get_double(const char *format, ...)
     }
 }
 
+// Free memory for dynamic array of allocated strings
+// Call automatically after execution exit main program
 static void teardown(void)
 {
     if (strings != NULL)
@@ -357,7 +363,8 @@ static void teardown(void)
     }
 }
 
-#if defined(_MSC_VER)
+// Define portable INITIALISER(FUNC) macro to run FUNC before main program
+#if defined(_MSC_VER) // MSVC
 #pragma section(".CRT$XCU", read)
 #define INITIALISER_(FUNC, PREFIX)                                 \
     static void FUNC(void);                                        \
@@ -368,7 +375,8 @@ static void teardown(void)
 #else
 #define INITIALISER(FUNC) INITIALISER_(FUNC, "_")
 #endif
-#elif defined(__GNUC__)
+#elif defined(__GNUC__) // GCC, Clang, MinGW
+// Use constructor attribute to run function before main program
 #define INITIALISER(FUNC)                                \
     static void FUNC(void) __attribute__((constructor)); \
     static void FUNC(void)
@@ -376,10 +384,15 @@ static void teardown(void)
 #error The library requires compiler-specific features. Refer to the source code and documentation.
 #endif
 
+// Call automatically before execution enters main program
 INITIALISER(setup)
 {
+    // Disable buffering for standard output
     setvbuf(stdout, NULL, _IONBF, 0);
+
+    // Free memory for dynamic array of allocated strings
     atexit(teardown);
 }
 
+// Re-enable warnings
 #pragma GCC diagnostic pop

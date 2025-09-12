@@ -7,7 +7,7 @@
 #include <float.h>
 
 // Prompt user for line of characters from standard input
-// Return string (char *) data type. If user inputs only line ending, returns "" not NULL
+// Return string (char *) value. If user inputs only line ending, returns "" not NULL
 // Support CR (\r), LF (\n), and CRLF (\r\n) as line endings
 // Return NULL on errors or no input (EOF)
 // Store string on heap, library destructor frees memory on program exit
