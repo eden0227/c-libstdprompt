@@ -300,31 +300,33 @@ float get_float(const char *format, ...)
     va_list ap;
     va_start(ap, format);
 
+    // Try to get float from user
     while (true)
     {
-        char *str = get_string(&ap, format);
+        char *str = get_string(&ap, format); // Get line of characters
         if (str == NULL)
         {
             va_end(ap);
-            return FLT_MAX;
+            return FLT_MAX; // Return sentinel value on error
         }
 
-        while (isspace((unsigned char)*str))
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
         if (*str)
         {
             errno = 0;
             char *end;
-            float flt = strtof(str, &end);
+            float flt = strtof(str, &end); // Convert string to float
 
-            while (isspace((unsigned char)*end))
+            while (isspace((unsigned char)*end)) // Trim trailing whitespace
                 end++;
 
+            // Check remaining string and range
             if (errno == 0 && *end == '\0' && isfinite(flt) && flt >= -FLT_MAX && flt <= FLT_MAX)
             {
                 va_end(ap);
-                return flt;
+                return flt; // Return float
             }
         }
     }
