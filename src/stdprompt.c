@@ -340,45 +340,46 @@ double get_double(const char *format, ...)
     va_list ap;
     va_start(ap, format);
 
+    // Try to get float from user
     while (true)
     {
-        char *str = get_string(&ap, format);
+        char *str = get_string(&ap, format); // Get line of characters
         if (str == NULL)
         {
             va_end(ap);
-            return DBL_MAX;
+            return DBL_MAX; // Return sentinel value on error
         }
 
-        while (isspace((unsigned char)*str))
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
         if (*str)
         {
             errno = 0;
             char *end;
-            double dbl = strtod(str, &end);
+            double dbl = strtod(str, &end); // Convert string to double
 
-            while (isspace((unsigned char)*end))
+            while (isspace((unsigned char)*end)) // Trim trailing whitespace
                 end++;
 
+            // Check remaining string and range
             if (errno == 0 && *end == '\0' && isfinite(dbl) && dbl >= -DBL_MAX && dbl <= DBL_MAX)
             {
                 va_end(ap);
-                return dbl;
+                return dbl; // Return double
             }
         }
     }
 }
 
-// Free memory for dynamic array of allocated strings
 // Call automatically after execution exit main program
 static void teardown(void)
 {
     if (strings != NULL)
     {
         for (size_t i = 0; i < allocations; i++)
-            free(strings[i]);
-        free(strings);
+            free(strings[i]); // Free allocated strings
+        free(strings);        // Free dynamic array
     }
 }
 
