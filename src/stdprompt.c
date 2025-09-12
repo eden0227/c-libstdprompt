@@ -220,31 +220,33 @@ long get_long(const char *format, ...)
     va_list ap;
     va_start(ap, format);
 
+    // Try to get long from user
     while (true)
     {
-        char *str = get_string(&ap, format);
+        char *str = get_string(&ap, format); // Get line of characters
         if (str == NULL)
         {
             va_end(ap);
-            return LONG_MAX;
+            return LONG_MAX; // Return sentinel value on error
         }
 
-        while (isspace((unsigned char)*str))
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
         if (*str)
         {
             errno = 0;
             char *end;
-            long num = strtol(str, &end, 10);
+            long num = strtol(str, &end, 10); // Convert string to long
 
-            while (isspace((unsigned char)*end))
+            while (isspace((unsigned char)*end)) // Trim trailing whitespace
                 end++;
 
+            // Check remaining string and range
             if (errno == 0 && *end == '\0' && num >= LONG_MIN && num <= LONG_MAX)
             {
                 va_end(ap);
-                return num;
+                return num; // Return long
             }
         }
     }
