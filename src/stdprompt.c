@@ -144,26 +144,27 @@ char get_char(const char *format, ...)
     va_list ap;
     va_start(ap, format);
 
+    // Try to get char from user
     while (true)
     {
-        char *str = get_string(&ap, format);
+        char *str = get_string(&ap, format); // Get line of characters
         if (str == NULL)
         {
             va_end(ap);
-            return CHAR_MAX;
+            return CHAR_MAX; // Return sentinel value on error
         }
 
-        while (isspace((unsigned char)*str))
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
-        if (*str == '\0')
+        if (*str == '\0') // Check for empty string
             continue;
 
         char *end = str + strlen(str) - 1;
-        while (end > str && isspace((unsigned char)*end))
+        while (end > str && isspace((unsigned char)*end)) // Trim trailing whitespace
             *end-- = '\0';
 
-        if (*(str + 1) == '\0')
+        if (*(str + 1) == '\0') // Return char if single char is provided
         {
             va_end(ap);
             return (char)*str;
