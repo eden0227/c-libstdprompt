@@ -1,4 +1,4 @@
-// Enable GNU-specific extensions in standard libraries
+// Enable GNU-specific attributes in standard libraries
 #define _GNU_SOURCE
 
 #include <stdarg.h>
