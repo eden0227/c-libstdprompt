@@ -246,16 +246,16 @@ int get_int(const char *format, ...)
 
         errno = 0;
         char *end;
-        long num = strtol(str, &end, 10); // Convert string to long
+        long val = strtol(str, &end, 10); // Convert string to long
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && num >= INT_MIN && num <= INT_MAX)
+        if (errno == 0 && *end == '\0' && val >= INT_MIN && val <= INT_MAX)
         {
             va_end(ap);
-            return (int)num; // Cast long to int
+            return (int)val; // Cast long to int
         }
     }
 }
@@ -289,16 +289,16 @@ unsigned int get_unsigned_int(const char *format, ...)
 
         errno = 0;
         char *end;
-        unsigned long num = strtoul(str, &end, 10); // Convert string to unsigned long
+        unsigned long val = strtoul(str, &end, 10); // Convert string to unsigned long
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && num <= UINT_MAX)
+        if (errno == 0 && *end == '\0' && val <= UINT_MAX)
         {
             va_end(ap);
-            return (unsigned int)num; // Cast unsigned long to unsigned int
+            return (unsigned int)val; // Cast unsigned long to unsigned int
         }
     }
 }
@@ -329,16 +329,16 @@ long get_long(const char *format, ...)
 
         errno = 0;
         char *end;
-        long num = strtol(str, &end, 10); // Convert string to long
+        long val = strtol(str, &end, 10); // Convert string to long
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && num >= LONG_MIN && num <= LONG_MAX)
+        if (errno == 0 && *end == '\0' && val >= LONG_MIN && val <= LONG_MAX)
         {
             va_end(ap);
-            return num; // Return long
+            return val; // Return long
         }
     }
 }
@@ -372,16 +372,16 @@ unsigned long get_unsigned_long(const char *format, ...)
 
         errno = 0;
         char *end;
-        unsigned long num = strtoul(str, &end, 10); // Convert string to unsigned long
+        unsigned long val = strtoul(str, &end, 10); // Convert string to unsigned long
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && num <= ULONG_MAX)
+        if (errno == 0 && *end == '\0' && val <= ULONG_MAX)
         {
             va_end(ap);
-            return num; // Return unsigned long
+            return val; // Return unsigned long
         }
     }
 }
@@ -412,16 +412,16 @@ long long get_long_long(const char *format, ...)
 
         errno = 0;
         char *end;
-        long long num = strtoll(str, &end, 10); // Convert string to long long
+        long long val = strtoll(str, &end, 10); // Convert string to long long
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && num >= LLONG_MIN && num <= LLONG_MAX)
+        if (errno == 0 && *end == '\0' && val >= LLONG_MIN && val <= LLONG_MAX)
         {
             va_end(ap);
-            return num; // Return long long
+            return val; // Return long long
         }
     }
 }
@@ -455,16 +455,16 @@ unsigned long long get_unsigned_long_long(const char *format, ...)
 
         errno = 0;
         char *end;
-        unsigned long long num = strtoull(str, &end, 10); // Convert string to unsigned long long
+        unsigned long long val = strtoull(str, &end, 10); // Convert string to unsigned long long
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && num <= ULLONG_MAX)
+        if (errno == 0 && *end == '\0' && val <= ULLONG_MAX)
         {
             va_end(ap);
-            return num; // Return unsigned long long
+            return val; // Return unsigned long long
         }
     }
 }
@@ -495,16 +495,16 @@ float get_float(const char *format, ...)
 
         errno = 0;
         char *end;
-        float flt = strtof(str, &end); // Convert string to float
+        float val = strtof(str, &end); // Convert string to float
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && isfinite(flt) && flt >= -FLT_MAX && flt <= FLT_MAX)
+        if (errno == 0 && *end == '\0' && isfinite(val) && val >= -FLT_MAX && val <= FLT_MAX)
         {
             va_end(ap);
-            return flt; // Return float
+            return val; // Return float
         }
     }
 }
@@ -535,16 +535,16 @@ double get_double(const char *format, ...)
 
         errno = 0;
         char *end;
-        double dbl = strtod(str, &end); // Convert string to double
+        double val = strtod(str, &end); // Convert string to double
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && isfinite(dbl) && dbl >= -DBL_MAX && dbl <= DBL_MAX)
+        if (errno == 0 && *end == '\0' && isfinite(val) && val >= -DBL_MAX && val <= DBL_MAX)
         {
             va_end(ap);
-            return dbl; // Return double
+            return val; // Return double
         }
     }
 }
@@ -575,16 +575,16 @@ long double get_long_double(const char *format, ...)
 
         errno = 0;
         char *end;
-        long double ldbl = strtold(str, &end); // Convert string to long double
+        long double val = strtold(str, &end); // Convert string to long double
 
         while (isspace((unsigned char)*end)) // Trim trailing whitespace
             end++;
 
         // Check remaining string and range
-        if (errno == 0 && *end == '\0' && isfinite(ldbl) && ldbl >= -LDBL_MAX && ldbl <= LDBL_MAX)
+        if (errno == 0 && *end == '\0' && isfinite(val) && val >= -LDBL_MAX && val <= LDBL_MAX)
         {
             va_end(ap);
-            return ldbl; // Return long double
+            return val; // Return long double
         }
     }
 }
