@@ -50,6 +50,11 @@ unsigned long get_unsigned_long(const char *format, ...) __attribute__((format(p
 long long get_long_long(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 // Prompt user for line of characters from standard input using get_string function
+// Return unsigned long long value. If string does not represent unsigned long long in [0, ULLONG_MAX], prompt user to retry
+// Return ULLONG_MAX as sentinel value if string cannot be read
+unsigned long long get_unsigned_long_long(const char *format, ...) __attribute__((format(printf, 1, 2)));
+
+// Prompt user for line of characters from standard input using get_string function
 // Return float value. If string does not represent float in [-FLT_MAX, FLT_MAX], prompt user to retry
 // Return FLT_MAX as sentinel value if string cannot be read
 float get_float(const char *format, ...) __attribute__((format(printf, 1, 2)));

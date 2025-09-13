@@ -409,6 +409,46 @@ long long get_long_long(const char *format, ...)
 }
 
 // Prompt user for line of characters from standard input using get_string function
+// Return unsigned long long value. If string does not represent unsigned long long in [0, ULLONG_MAX], prompt user to retry
+// Return ULLONG_MAX as sentinel value if string cannot be read
+unsigned long long get_unsigned_long_long(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+
+    // Try to get unsigned long long from user
+    while (true)
+    {
+        char *str = get_string(&ap, format); // Get line of characters
+        if (str == NULL)
+        {
+            va_end(ap);
+            return ULLONG_MAX; // Return sentinel value on error
+        }
+
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
+            str++;
+
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        unsigned long long num = strtoull(str, &end, 10); // Convert string to unsigned long long
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && num <= ULLONG_MAX)
+        {
+            va_end(ap);
+            return num; // Return unsigned long long
+        }
+    }
+}
+
+// Prompt user for line of characters from standard input using get_string function
 // Return float value. If string does not represent float in [-FLT_MAX, FLT_MAX], prompt user to retry
 // Return FLT_MAX as sentinel value if string cannot be read
 float get_float(const char *format, ...)
