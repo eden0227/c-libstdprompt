@@ -528,6 +528,46 @@ double get_double(const char *format, ...)
     }
 }
 
+// Prompt user for line of characters from standard input using get_string function
+// Return long double value. If string does not represent long double in [-LDBL_MAX, LDBL_MAX], prompt user to retry
+// Return LDBL_MAX as sentinel value if string cannot be read
+long double get_long_double(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+
+    // Try to get float from user
+    while (true)
+    {
+        char *str = get_string(&ap, format); // Get line of characters
+        if (str == NULL)
+        {
+            va_end(ap);
+            return LDBL_MAX; // Return sentinel value on error
+        }
+
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
+            str++;
+
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        long double ldbl = strtold(str, &end); // Convert string to long double
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && isfinite(ldbl) && ldbl >= -LDBL_MAX && ldbl <= LDBL_MAX)
+        {
+            va_end(ap);
+            return ldbl; // Return long double
+        }
+    }
+}
+
 // Call automatically after execution exit main program
 static void teardown(void)
 {
