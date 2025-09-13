@@ -203,7 +203,7 @@ unsigned char get_unsigned_char(const char *format, ...)
         if (*(str + 1) == '\0') // Return char if single char is provided
         {
             va_end(ap);
-            return (unsigned char)*str;
+            return (unsigned char)*str; // Cast char to unsigned char
         }
     }
 }
@@ -243,7 +243,47 @@ int get_int(const char *format, ...)
         if (errno == 0 && *end == '\0' && num >= INT_MIN && num <= INT_MAX)
         {
             va_end(ap);
-            return (int)num; // Cast int to long
+            return (int)num; // Cast long to int
+        }
+    }
+}
+
+// Prompt user for line of characters from standard input using get_string function
+// Return unsigned int value. If string does not represent unsigned int in [0, UINT_MAX], prompt user to retry
+// Return UINT_MAX as sentinel value if string cannot be read
+unsigned int get_unsigned_int(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+
+    // Try to get unsigned int from user
+    while (true)
+    {
+        char *str = get_string(&ap, format); // Get line of characters
+        if (str == NULL)
+        {
+            va_end(ap);
+            return UINT_MAX; // Return sentinel value on error
+        }
+
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
+            str++;
+
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        errno = 0;
+        char *end;
+        unsigned long num = strtoul(str, &end, 10); // Convert string to unsigned long
+
+        while (isspace((unsigned char)*end)) // Trim trailing whitespace
+            end++;
+
+        // Check remaining string and range
+        if (errno == 0 && *end == '\0' && num <= UINT_MAX)
+        {
+            va_end(ap);
+            return (unsigned int)num; // Cast unsigned long to unsigned int
         }
     }
 }

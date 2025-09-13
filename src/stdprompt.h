@@ -30,6 +30,11 @@ unsigned char get_unsigned_char(const char *format, ...) __attribute__((format(p
 int get_int(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 // Prompt user for line of characters from standard input using get_string function
+// Return unsigned int value. If string does not represent unsigned int in [0, UINT_MAX], prompt user to retry
+// Return UINT_MAX as sentinel value if string cannot be read
+unsigned int get_unsigned_int(const char *format, ...) __attribute__((format(printf, 1, 2)));
+
+// Prompt user for line of characters from standard input using get_string function
 // Return long value. If string does not represent long in [LONG_MIN, LONG_MAX], prompt user to retry
 // Return LONG_MAX as sentinel value if string cannot be read
 long get_long(const char *format, ...) __attribute__((format(printf, 1, 2)));
