@@ -173,6 +173,42 @@ char get_char(const char *format, ...)
 }
 
 // Prompt user for line of characters from standard input using get_string function
+// Return unsigned char value. If string does not represent single char, prompt user to retry
+// Return UCHAR_MAX as sentinel value if string cannot be read
+unsigned char get_unsigned_char(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+
+    // Try to get char from user
+    while (true)
+    {
+        char *str = get_string(&ap, format); // Get line of characters
+        if (str == NULL)
+        {
+            va_end(ap);
+            return UCHAR_MAX; // Return sentinel value on error
+        }
+
+        while (isspace((unsigned char)*str)) // Trim leading whitespace
+            str++;
+
+        if (*str == '\0') // Check for empty string
+            continue;
+
+        char *end = str + strlen(str) - 1;
+        while (end > str && isspace((unsigned char)*end)) // Trim trailing whitespace
+            *end-- = '\0';
+
+        if (*(str + 1) == '\0') // Return char if single char is provided
+        {
+            va_end(ap);
+            return (unsigned char)*str;
+        }
+    }
+}
+
+// Prompt user for line of characters from standard input using get_string function
 // Return int value. If string does not represent int in [INT_MIN, INT_MAX], prompt user to retry
 // Return INT_MAX as sentinel value if string cannot be read
 int get_int(const char *format, ...)

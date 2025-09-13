@@ -20,6 +20,11 @@ char *get_string(va_list *args, const char *format, ...) __attribute__((format(p
 char get_char(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 // Prompt user for line of characters from standard input using get_string function
+// Return unsigned char value. If string does not represent single char, prompt user to retry
+// Return UCHAR_MAX as sentinel value if string cannot be read
+unsigned char get_unsigned_char(const char *format, ...) __attribute__((format(printf, 1, 2)));
+
+// Prompt user for line of characters from standard input using get_string function
 // Return int value. If string does not represent int in [INT_MIN, INT_MAX], prompt user to retry
 // Return INT_MAX as sentinel value if string cannot be read
 int get_int(const char *format, ...) __attribute__((format(printf, 1, 2)));
