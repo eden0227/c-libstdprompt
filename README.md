@@ -62,14 +62,17 @@
 
 ## Changelog
 
-### [v1.2]
+### [v2.0]
 
+-   Add unsigned functions
+-   Add long double function
 -   Add code comments
 
 ### [v1.1]
 
 -   Refactor get_string function
 -   Refactor wrapper functions
+-   Add code comments
 
 ### [v1.0]
 
