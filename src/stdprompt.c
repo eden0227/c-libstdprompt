@@ -199,7 +199,7 @@ unsigned char get_unsigned_char(const char *format, ...)
         if (*str && *(str + 1) == '\0') // Accept single char
         {
             va_end(ap);
-            return *str;
+            return (unsigned char)*str;
         }
 
         while (isspace((unsigned char)*str)) // Trim leading whitespace
