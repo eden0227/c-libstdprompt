@@ -167,7 +167,7 @@ char get_char(const char *format, ...)
         if (*(str + 1) == '\0') // Return char if single char is provided
         {
             va_end(ap);
-            return (char)*str;
+            return *str;
         }
     }
 }
