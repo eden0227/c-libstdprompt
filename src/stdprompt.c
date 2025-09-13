@@ -154,6 +154,12 @@ char get_char(const char *format, ...)
             return CHAR_MAX; // Return sentinel value on error
         }
 
+        if (*str && *(str + 1) == '\0') // Accept single char
+        {
+            va_end(ap);
+            return *str;
+        }
+
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
@@ -164,7 +170,7 @@ char get_char(const char *format, ...)
         while (end > str && isspace((unsigned char)*end)) // Trim trailing whitespace
             *end-- = '\0';
 
-        if (*(str + 1) == '\0') // Return char if single char is provided
+        if (*str && *(str + 1) == '\0') // Return char if single char is provided
         {
             va_end(ap);
             return *str;
@@ -190,6 +196,12 @@ unsigned char get_unsigned_char(const char *format, ...)
             return UCHAR_MAX; // Return sentinel value on error
         }
 
+        if (*str && *(str + 1) == '\0') // Accept single char
+        {
+            va_end(ap);
+            return *str;
+        }
+
         while (isspace((unsigned char)*str)) // Trim leading whitespace
             str++;
 
@@ -200,7 +212,7 @@ unsigned char get_unsigned_char(const char *format, ...)
         while (end > str && isspace((unsigned char)*end)) // Trim trailing whitespace
             *end-- = '\0';
 
-        if (*(str + 1) == '\0') // Return char if single char is provided
+        if (*str && *(str + 1) == '\0') // Return char if single char is provided
         {
             va_end(ap);
             return (unsigned char)*str; // Cast char to unsigned char
