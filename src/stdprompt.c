@@ -284,6 +284,9 @@ unsigned int get_unsigned_int(const char *format, ...)
         if (*str == '\0') // Check for empty string
             continue;
 
+        if (*str == '-') // Reject negative value
+            continue;
+
         errno = 0;
         char *end;
         unsigned long num = strtoul(str, &end, 10); // Convert string to unsigned long
@@ -364,6 +367,9 @@ unsigned long get_unsigned_long(const char *format, ...)
         if (*str == '\0') // Check for empty string
             continue;
 
+        if (*str == '-') // Reject negative value
+            continue;
+
         errno = 0;
         char *end;
         unsigned long num = strtoul(str, &end, 10); // Convert string to unsigned long
@@ -442,6 +448,9 @@ unsigned long long get_unsigned_long_long(const char *format, ...)
             str++;
 
         if (*str == '\0') // Check for empty string
+            continue;
+
+        if (*str == '-') // Reject negative value
             continue;
 
         errno = 0;
