@@ -62,6 +62,10 @@
 
 ## Changelog
 
+### [v3.0]
+
+-   Add test program and source file ([tests](tests))
+
 ### [v2.0]
 
 -   Add unsigned functions
