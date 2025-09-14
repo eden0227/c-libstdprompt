@@ -105,7 +105,7 @@ int main(int argc, char const *argv[])
         char c = get_char("Input : ");
         if (c == CHAR_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate char\n\n");
+            printf("Error: Unable to allocate char or sentinel value\n\n");
             return 3;
         }
 
@@ -120,7 +120,7 @@ int main(int argc, char const *argv[])
         unsigned char c = get_unsigned_char("Input : ");
         if (c == UCHAR_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate unsigned char\n\n");
+            printf("Error: Unable to allocate unsigned char or sentinel value\n\n");
             return 3;
         }
 
@@ -135,7 +135,7 @@ int main(int argc, char const *argv[])
         int val = get_int("Input : ");
         if (val == INT_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate int\n\n");
+            printf("Error: Unable to allocate int or sentinel value\n\n");
             return 3;
         }
 
@@ -150,7 +150,7 @@ int main(int argc, char const *argv[])
         unsigned int val = get_unsigned_int("Input : ");
         if (val == UINT_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate unsigned int\n\n");
+            printf("Error: Unable to allocate unsigned int or sentinel value\n\n");
             return 3;
         }
 
@@ -165,7 +165,7 @@ int main(int argc, char const *argv[])
         long val = get_long("Input : ");
         if (val == LONG_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate long\n\n");
+            printf("Error: Unable to allocate long or sentinel value\n\n");
             return 3;
         }
 
@@ -180,7 +180,7 @@ int main(int argc, char const *argv[])
         unsigned long val = get_unsigned_long("Input : ");
         if (val == ULONG_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate unsigned long\n\n");
+            printf("Error: Unable to allocate unsigned long or sentinel value\n\n");
             return 3;
         }
 
@@ -195,7 +195,7 @@ int main(int argc, char const *argv[])
         long long val = get_long_long("Input : ");
         if (val == LLONG_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate long long\n\n");
+            printf("Error: Unable to allocate long long or sentinel value\n\n");
             return 3;
         }
 
@@ -210,7 +210,7 @@ int main(int argc, char const *argv[])
         unsigned long long val = get_unsigned_long_long("Input : ");
         if (val == ULLONG_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate unsigned long long\n\n");
+            printf("Error: Unable to allocate unsigned long long or sentinel value\n\n");
             return 3;
         }
 
@@ -225,7 +225,7 @@ int main(int argc, char const *argv[])
         float val = get_float("Input : ");
         if (val == FLT_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate float\n\n");
+            printf("Error: Unable to allocate float or sentinel value\n\n");
             return 3;
         }
 
@@ -240,7 +240,7 @@ int main(int argc, char const *argv[])
         double val = get_double("Input : ");
         if (val == DBL_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate double\n\n");
+            printf("Error: Unable to allocate double or sentinel value\n\n");
             return 3;
         }
 
@@ -255,7 +255,7 @@ int main(int argc, char const *argv[])
         long double val = get_long_double("Input : ");
         if (val == LDBL_MAX) // Sentinel value
         {
-            printf("Error: Unable to allocate long double\n\n");
+            printf("Error: Unable to allocate long double or sentinel value\n\n");
             return 3;
         }
 
