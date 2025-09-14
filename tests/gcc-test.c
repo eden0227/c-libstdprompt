@@ -18,13 +18,13 @@
 #define DBL 11
 #define LDBL 12
 
-struct type_entry
+typedef struct type_entry
 {
     char *name;
     int code;
-};
+} type_entry;
 
-static struct type_entry list[] = {
+static type_entry list[] = {
     {"str", STR},
     {"char", CHAR},
     {"uchar", UCHAR},
