@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <float.h>
 
-#include "./src/stdprompt.h"
+#include "../src/stdprompt.h"
 
 #define STR 1
 #define CHAR 2
