@@ -229,7 +229,7 @@ int main(int argc, char const *argv[])
             return 3;
         }
 
-        printf("Output: %f\n\n", val);
+        printf("Output: %.*f\n\n", FLT_DIG, val);
         break;
     }
 
@@ -244,7 +244,7 @@ int main(int argc, char const *argv[])
             return 3;
         }
 
-        printf("Output: %lf\n\n", val);
+        printf("Output: %.*lf\n\n", DBL_DIG, val);
         break;
     }
 
@@ -259,7 +259,7 @@ int main(int argc, char const *argv[])
             return 3;
         }
 
-        printf("Output: %Lf\n\n", val);
+        printf("Output: %.*Lf\n\n", LDBL_DIG, val);
         break;
     }
 
