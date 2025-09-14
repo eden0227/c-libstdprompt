@@ -57,16 +57,19 @@ unsigned long long get_unsigned_long_long(const char *format, ...) __attribute__
 // Prompt user for line of characters from standard input using get_string function
 // Return float value. If string does not represent float in [-FLT_MAX, FLT_MAX], prompt user to retry
 // Return FLT_MAX as sentinel value if string cannot be read
+// Ignore finite subnormal numbers
 float get_float(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 // Prompt user for line of characters from standard input using get_string function
 // Return double value. If string does not represent double in [-DBL_MAX, DBL_MAX], prompt user to retry
 // Return DBL_MAX as sentinel value if string cannot be read
+// Ignore finite subnormal numbers
 double get_double(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 // Prompt user for line of characters from standard input using get_string function
 // Return long double value. If string does not represent long double in [-LDBL_MAX, LDBL_MAX], prompt user to retry
 // Return LDBL_MAX as sentinel value if string cannot be read
+// Ignore finite subnormal numbers
 long double get_long_double(const char *format, ...) __attribute__((format(printf, 1, 2)));
 
 #endif
