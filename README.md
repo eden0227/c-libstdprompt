@@ -65,6 +65,7 @@
 ### [v3.0]
 
 -   Add test program and source file ([tests](tests))
+-   Add code comments
 
 ### [v2.0]
 

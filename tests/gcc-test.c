@@ -5,6 +5,7 @@
 
 #include "../src/stdprompt.h"
 
+// Define available type code macro
 #define STR 1
 #define CHAR 2
 #define UCHAR 3
@@ -24,6 +25,7 @@ typedef struct type_entry
     int code;
 } type_entry;
 
+// Initialise table of available type and code
 static type_entry list[] = {
     {"str", STR},
     {"char", CHAR},
@@ -39,6 +41,7 @@ static type_entry list[] = {
     {"ldouble", LDBL},
 };
 
+// Initialise total number of types
 static size_t len = sizeof(list) / sizeof(list[0]);
 
 void print_usage(const char *program);
@@ -58,13 +61,14 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
+    // Initialise code for type
     int code = 0;
 
     for (size_t i = 0; i < len; i++)
     {
         if (!strcmp(argv[1], list[i].name))
         {
-            code = list[i].code;
+            code = list[i].code; // Store code of valid input type
             break;
         }
     }
@@ -76,6 +80,7 @@ int main(int argc, char const *argv[])
         return 2;
     }
 
+    // Test input for selected type
     switch (code)
     {
     case STR:
@@ -83,7 +88,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         char *str = get_string("Input : ");
-        if (str == NULL)
+        if (str == NULL) // Sentinel value
         {
             printf("Error: Unable to allocate string");
             return 3;
@@ -98,7 +103,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         char c = get_char("Input : ");
-        if (c == CHAR_MAX)
+        if (c == CHAR_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate char");
             return 3;
@@ -113,7 +118,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         unsigned char c = get_unsigned_char("Input : ");
-        if (c == UCHAR_MAX)
+        if (c == UCHAR_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate unsigned char");
             return 3;
@@ -128,7 +133,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         int val = get_int("Input : ");
-        if (val == INT_MAX)
+        if (val == INT_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate int");
             return 3;
@@ -143,7 +148,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         unsigned int val = get_unsigned_int("Input : ");
-        if (val == UINT_MAX)
+        if (val == UINT_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate unsigned int");
             return 3;
@@ -158,7 +163,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         long val = get_long("Input : ");
-        if (val == LONG_MAX)
+        if (val == LONG_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate long");
             return 3;
@@ -173,7 +178,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         unsigned long val = get_unsigned_long("Input : ");
-        if (val == ULONG_MAX)
+        if (val == ULONG_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate unsigned long");
             return 3;
@@ -188,7 +193,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         long long val = get_long_long("Input : ");
-        if (val == LLONG_MAX)
+        if (val == LLONG_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate long long");
             return 3;
@@ -203,7 +208,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         unsigned long long val = get_unsigned_long_long("Input : ");
-        if (val == ULLONG_MAX)
+        if (val == ULLONG_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate unsigned long long");
             return 3;
@@ -218,7 +223,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         float val = get_float("Input : ");
-        if (val == FLT_MAX)
+        if (val == FLT_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate float");
             return 3;
@@ -233,7 +238,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         double val = get_double("Input : ");
-        if (val == DBL_MAX)
+        if (val == DBL_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate double");
             return 3;
@@ -248,7 +253,7 @@ int main(int argc, char const *argv[])
         printf("\nType  : %s\n", argv[1]);
 
         long double val = get_long_double("Input : ");
-        if (val == LDBL_MAX)
+        if (val == LDBL_MAX) // Sentinel value
         {
             printf("Error: Unable to allocate long double");
             return 3;
@@ -267,6 +272,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+// Print usage and table of types
 void print_usage(const char *program)
 {
     // Print usage above table
