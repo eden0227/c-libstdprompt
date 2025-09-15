@@ -29,7 +29,7 @@ This is a modified, extended version of `cs50.h` C library, built for more flexi
 -   Portable across commonly used compilers (**MSVC**, **GCC**, **Clang**, **MinGW**)
 -   Automatic memory cleanup for dynamic array of allocated strings at program termination
 
-Perfect for learners, hobbyists, or anyone tired of the limitations of the standard CS50 C library.
+Perfect for learners, hobbyists, or anyone looking to go beyond the standard CS50 C library.
 
 ---
 
