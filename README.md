@@ -280,10 +280,10 @@ Perfect for learners, hobbyists, or anyone looking to go beyond the standard CS5
 
 ## GCC CLI
 
-A simple GCC CLI program can be used to test the output of selected data type from `stdprompt.h` functions.
+The provided GCC CLI in ([tests](tests)) can be used to test the output from `stdprompt.h` functions of selected data type.
 
 > [!TIP]
-> Use the provided Makefile to compile the program with `stdprompt.h`.
+> Use the Makefile to compile the program with `stdprompt.h`.
 
 -   Run without arguments to display usage:
 
