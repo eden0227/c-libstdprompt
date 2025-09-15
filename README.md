@@ -288,9 +288,7 @@ A simple GCC CLI program can be used to test the output of selected data type fr
 -   Run without arguments to display usage:
 
     ```
-
     ./gcc-test
-
     ```
 
     ```
@@ -303,9 +301,7 @@ A simple GCC CLI program can be used to test the output of selected data type fr
 -   Run with `--help` to list all supported data types:
 
     ```
-
     ./gcc-test --help
-
     ```
 
     ```
@@ -333,9 +329,7 @@ A simple GCC CLI program can be used to test the output of selected data type fr
 -   Run with an invalid type to see the error messages:
 
     ```
-
     ./gcc-test string
-
     ```
 
     ```
@@ -348,9 +342,7 @@ A simple GCC CLI program can be used to test the output of selected data type fr
 -   Run with a valid type to enter input and view output:
 
     ```
-
     ./gcc-test str
-
     ```
 
     ```
