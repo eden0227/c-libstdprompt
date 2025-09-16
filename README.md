@@ -262,15 +262,15 @@ Perfect for learners, hobbyists, or anyone looking to go beyond the standard CS5
 
 -   Compile the main program together with `stdprompt.c` and link with the math library:
     ```
-    gcc <program>.c stdprompt.c -o <output> -lm
+    gcc <program>.c <src>/stdprompt.c -o <output> -lm
     ```
     or
     ```
-    clang <program>.c stdprompt.c -o <output> -lm
+    clang <program>.c <src>/stdprompt.c -o <output> -lm
     ```
     or
     ```
-    cl <program>.c stdprompt.c /Fe:<output>.exe
+    cl <program>.c <src>/stdprompt.c /Fe:<output>.exe
     ```
 
 > [!NOTE]
@@ -280,7 +280,7 @@ Perfect for learners, hobbyists, or anyone looking to go beyond the standard CS5
 
 ## GCC CLI
 
-The provided GCC CLI in ([tests](tests)) can be used to test the output from `stdprompt.h` functions of selected data type.
+The GCC CLI provided in ([tests](tests)) can be used to verify the output of `stdprompt.h` functions with selected data types.
 
 > [!TIP]
 > Use the Makefile to compile the program with `stdprompt.h`.
